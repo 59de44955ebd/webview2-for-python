@@ -978,7 +978,6 @@ else
     #
     ########################################
     def _on_navigation_starting(self, sender, args):
-        print('EMIT')
         self.emit(EVENT.NAVIGATION_STARTING, args)
 
     ########################################
@@ -1349,25 +1348,25 @@ else
     ########################################
     #
     ########################################
-    def print(self, callback = None):
+    def print(self, printSettings = None, callback = None):
         if self._webview is None:
             raise WebviewNotReadyException()
 
         self._webview.Print(
-            None,  # printSettings
+            printSettings,
             PrintCompletedHandler(callback).interface() if callback else None
         )
 
     ########################################
     #
     ########################################
-    def print_to_pdf(self, pdf_file, callback = None):
+    def print_to_pdf(self, pdf_file, printSettings = None, callback = None):
         if self._webview is None:
             raise WebviewNotReadyException()
 
         self._webview.PrintToPdf(
             pdf_file,
-            None,  # printSettings
+            printSettings,
             PrintToPdfCompletedHandler(callback).interface() if callback else None
         )
 
