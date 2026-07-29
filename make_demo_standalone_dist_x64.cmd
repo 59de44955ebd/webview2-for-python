@@ -14,27 +14,12 @@ REM Cleanup dist folder
 rd /s /q "dist\%APP_NAME%" 2>nul
 del "dist\%APP_NAME%-x64.7z" 2>nul
 
-REM "Compile" winapp contants and functions
-cd src
-python _compile_const.py
-python _compile_dlls.py
-ren webview2\winapp\const.py __const.py
-ren webview2\winapp\const_c.py const.py
-ren webview2\winapp\dlls.py __dlls.py
-ren webview2\winapp\dlls_c.py dlls.py
-cd ..
-
 echo.
 echo ****************************************
 echo Running pyinstaller...
 echo ****************************************
 set PYTHONPATH=src
 pyinstaller --noupx -w -n "%APP_NAME%" -i %ICON% -r "src\demos\%APP_NAME%\resources.dll" -D "src\demos\%APP_NAME%\main.py" --hidden-import webview2 --contents-directory %DATA_DIR%
-
-ren src\webview2\winapp\const.py const_c.py
-ren src\webview2\winapp\__const.py const.py
-ren src\webview2\winapp\dlls.py dlls_c.py
-ren src\webview2\winapp\__dlls.py dlls.py
 
 echo.
 echo ****************************************
