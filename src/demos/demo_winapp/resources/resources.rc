@@ -1,0 +1,30 @@
+#include "windows.h"
+#include "resources.h"
+
+1 ICON "app.ico"
+
+1 VERSIONINFO
+FILEVERSION 0,1,0,0
+PRODUCTVERSION 0,1,0,0
+FILEOS 0x40004
+FILETYPE 0x1
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "040904B0"
+	{
+		VALUE "CompanyName", "59de44955ebd"
+		VALUE "FileDescription", "Demo"
+		VALUE "FileVersion", "0.1.0.0)"
+		VALUE "InternalName", "Demo"
+		VALUE "OriginalFilename", "demo.exe"
+		VALUE "ProductName", "Demo"
+		VALUE "ProductVersion", "0,1,0,0"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0409 0x04B0
+}
+}

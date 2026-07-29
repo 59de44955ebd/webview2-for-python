@@ -1,0 +1,34 @@
+#include "windows.h"
+#include "resources.h"
+
+1 MENU
+BEGIN
+  POPUP "&File"
+  BEGIN
+    MENUITEM "&Open File...\tCtrl+O",IDM_OPEN
+    MENUITEM SEPARATOR
+    MENUITEM "&Save Page as...\tCtrl+S",IDM_SAVE
+    MENUITEM "Save as PD&F...",IDM_PRINT_TO_PDF
+    MENUITEM "Save as &Image...",IDM_SAVE_AS_IMAGE
+    MENUITEM SEPARATOR
+    MENUITEM "&Print...\tCtrl+P",IDM_PRINT
+    MENUITEM SEPARATOR
+    MENUITEM "E&xit\tCtrl+Q",IDM_EXIT
+  END
+  POPUP "&View"
+  BEGIN
+    MENUITEM "&Fullscreen\tF11", IDM_FULLSCREEN
+    POPUP "&Theme"
+    BEGIN
+      MENUITEM "&Auto (System)", IDM_THEME_AUTO,CHECKED
+      MENUITEM "&Light", IDM_THEME_LIGHT
+      MENUITEM "&Dark", IDM_THEME_DARK
+    END
+  END
+  POPUP "&Help"
+  BEGIN
+    MENUITEM "&About...\tF1", IDM_ABOUT
+    MENUITEM SEPARATOR
+    MENUITEM "&Open Developer Tools\tF12", IDM_DEV_TOOLS
+  END
+END

@@ -7,6 +7,7 @@ It can either be used in [standalone mode](src/demos/demo_standalone/) or embedd
 * [PyQt6](src/demos/demo_pyqt6/)
 * [PySide6](src/demos/demo_pyside6/)
 * [Tkinter](src/demos/demo_tkinter/)
+* [WinApp](src/demos/demo_winapp/) (my own Windows API toolkit)
 * [WinForms](src/demos/demo_winforms/) (Windows Forms)
 * [wxPython](src/demos/demo_wxpython/)  (wxWidgets)
 
@@ -16,6 +17,7 @@ Usage (minimal code, standalone mode):
 from webview2.standalone import *
 
 webview = WebView2(url='https://www.google.com/')
+webview.set_focus()
 webview.run()
 ```
 

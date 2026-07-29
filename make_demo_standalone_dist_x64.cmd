@@ -40,7 +40,7 @@ del "dist\%APP_NAME%\%DATA_DIR%\_socket.pyd
 del "dist\%APP_NAME%\%DATA_DIR%\_bz2.pyd
 del "dist\%APP_NAME%\%DATA_DIR%\_lzma.pyd"
 
-::call :create_7z
+call :create_7z
 
 :done
 echo.
@@ -68,6 +68,6 @@ echo Creating .7z archives...
 echo ****************************************
 cd dist
 set PATH=C:\Program Files\7-Zip;%PATH%
-7z a "%APP_NAME%-x64.7z" "%APP_NAME%\*"
+7z a "%APP_NAME%-portable-x64.7z" "%APP_NAME%\*"
 cd ..
 exit /B

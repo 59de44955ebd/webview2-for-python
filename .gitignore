@@ -9,3 +9,4 @@ _backup.rar
 /_make_all.cmd
 /make_simplebrowser_dist_x64.cmd
 /src/demos/SimpleBrowser/
+/src/_min.py

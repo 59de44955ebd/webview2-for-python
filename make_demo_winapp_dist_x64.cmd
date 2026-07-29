@@ -2,8 +2,8 @@
 setlocal EnableDelayedExpansion
 
 REM Config
-set APP_NAME=demo_tkinter
-set ICON=src\demos\%APP_NAME%\app.ico
+set APP_NAME=demo_winapp
+set ICON=NONE
 set DATA_DIR=data
 
 cd /d %~dp0
@@ -19,14 +19,13 @@ echo ****************************************
 echo Running pyinstaller...
 echo ****************************************
 set PYTHONPATH=src
-pyinstaller --noupx -w -n "%APP_NAME%" -i "%ICON%" -D "src\demos\%APP_NAME%\main.py" --hidden-import webview2 --contents-directory %DATA_DIR%
+pyinstaller --noupx -w -n "%APP_NAME%" -i %ICON% -r "src\demos\%APP_NAME%\resources.dll" -D "src\demos\%APP_NAME%\main.py" --hidden-import webview2 --contents-directory %DATA_DIR%
 
 echo.
 echo ****************************************
 echo Copying resources...
 echo ****************************************
 copy "src\webview2\native\win-amd64\loader.dll" "dist\%APP_NAME%\%DATA_DIR%\"
-copy "src\demos\%APP_NAME%\app.ico" "dist\%APP_NAME%\%DATA_DIR%\"
 
 echo.
 echo ****************************************
@@ -36,13 +35,10 @@ del "dist\%APP_NAME%\%DATA_DIR%\api-ms-win-*.dll"
 del "dist\%APP_NAME%\%DATA_DIR%\ucrtbase.dll"
 del "dist\%APP_NAME%\%DATA_DIR%\VCRUNTIME140.dll"
 
-del "dist\%APP_NAME%\%DATA_DIR%\libcrypto-3.dll"
-del "dist\%APP_NAME%\%DATA_DIR%\unicodedata.pyd"
-del "dist\%APP_NAME%\%DATA_DIR%\_bz2.pyd"
+del "dist\%APP_NAME%\%DATA_DIR%\select.pyd
+del "dist\%APP_NAME%\%DATA_DIR%\_socket.pyd
+del "dist\%APP_NAME%\%DATA_DIR%\_bz2.pyd
 del "dist\%APP_NAME%\%DATA_DIR%\_lzma.pyd"
-del "dist\%APP_NAME%\%DATA_DIR%\_socket.pyd"
-
-rd /q /s "dist\%APP_NAME%\%DATA_DIR%\tcl8"
 
 call :create_7z
 
