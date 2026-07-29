@@ -1,0 +1,11 @@
+/stuff/
+/releases/
+/build/
+/dist/
+/*.spec
+/test_files/
+_backup.rar
+/nsis/
+/_make_all.cmd
+/make_simplebrowser_dist_x64.cmd
+/src/demos/SimpleBrowser/

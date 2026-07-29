@@ -1,0 +1,28 @@
+<RCC>
+  <qresource prefix="">
+    <file>icons/plus.png</file>
+    <file>icons/new.png</file>
+    <file>icons/bookmark.png</file>
+    <file>icons/editcopy.png</file>
+    <file>icons/editcut.png</file>
+    <file>icons/editpaste.png</file>
+    <file>icons/editredo.png</file>
+    <file>icons/editundo.png</file>
+    <file>icons/exportpdf.png</file>
+    <file>icons/fileopen.png</file>
+    <file>icons/fileprint.png</file>
+    <file>icons/filesave.png</file>
+    <file>icons/js-off.png</file>
+    <file>icons/js-on.png</file>
+    <file>icons/nav-back.png</file>
+    <file>icons/about.png</file>
+    <file>icons/app.png</file>
+    <file>icons/nav-bookmarks.png</file>
+    <file>icons/nav-downloads.png</file>
+    <file>icons/nav-forward.png</file>
+    <file>icons/nav-history.png</file>
+    <file>icons/nav-home.png</file>
+    <file>icons/nav-reload.png</file>
+    <file>icons/nav-stop.png</file>
+  </qresource>
+</RCC>
