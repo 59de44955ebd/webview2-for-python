@@ -7,7 +7,7 @@ It can either be used in [standalone mode](src/demos/demo_standalone/) or embedd
 * [PyQt6](src/demos/demo_pyqt6/)
 * [PySide6](src/demos/demo_pyside6/)
 * [Tkinter](src/demos/demo_tkinter/)
-* [WinApp](src/demos/demo_winapp/) (my own Windows API toolkit)
+* [WinApp](src/demos/demo_winapp/) (my own Windows API toolkit with dark mode support)
 * [WinForms](src/demos/demo_winforms/) (Windows Forms)
 * [wxPython](src/demos/demo_wxpython/)  (wxWidgets)
 
@@ -21,5 +21,5 @@ webview.set_focus()
 webview.run()
 ```
 
-*Standalone demo running in Windows 11 (dark mode)*
+*demo_standalone running in Windows 11 (dark mode)*
 ![](screenshots/webview2-standalone-win11-dark.png)
