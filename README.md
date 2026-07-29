@@ -11,7 +11,9 @@ It can either be used in [standalone mode](src/demos/demo_standalone/) or embedd
 * [WinForms](src/demos/demo_winforms/) (Windows Forms)
 * [wxPython](src/demos/demo_wxpython/)  (wxWidgets)
 
-Usage (minimal code, standalone mode):
+## Usage:
+
+Minimal code, standalone mode:
 
 ```python
 from webview2.standalone import *
@@ -20,6 +22,8 @@ webview = WebView2(url='https://www.google.com/')
 webview.set_focus()
 webview.run()
 ```
+For the API check out [\_\_init\_\_.py](src/webview2/__init__.py) and the various [demos](src/demos/).
 
+## Screenshots
 *demo_standalone running in Windows 11 (dark mode)*
 ![](screenshots/webview2-standalone-win11-dark.png)
