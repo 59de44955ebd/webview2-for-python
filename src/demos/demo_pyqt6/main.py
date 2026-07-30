@@ -15,7 +15,7 @@ if not IS_FROZEN:
     # Force local import
     sys.path.append(os.path.realpath(os.path.join(APP_DIR, '..', '..')))
 
-from webview2.embed.qt6 import *
+from webview2.embed.pyqt6 import *
 
 # In this demo we use a classic window status bar, so disable webview's inline status bar
 SETTINGS.STATUS_BAR_ENABLED = False
