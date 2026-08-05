@@ -11,10 +11,6 @@ It can either be used in [standalone mode](src/demos/demo_standalone/) or embedd
 * [WinForms](src/demos/demo_winforms/) (Windows Forms)
 * [wxPython](src/demos/demo_wxpython/)  (wxWidgets)
 
-## Loader
-
-The standard way to initialize WebView2 is to use the `WebView2Loader.dll` that comes with Microsofts's WebView2 SDK. WebView2-for-Python instead uses a [custom loader.dll](loader/). The reason for this is that this small loader.dll allows to use `CreateCoreWebView2EnvironmentWithOptions()` and pass an instance of `CoreWebView2EnvironmentOptions` to it, which requires [WRL](https://learn.microsoft.com/en-us/cpp/cppcx/wrl/windows-runtime-cpp-template-library-wrl) and is therefor hardly possible to implement it plain C or Python/ctypes/libffi code. In particular the `loader.dll` activates support of browser extensions in the used environment.
-
 ## Usage:
 
 Minimal code, standalone mode:
@@ -27,6 +23,10 @@ webview.set_focus()
 webview.run()
 ```
 For the API check out [\_\_init\_\_.py](src/webview2/__init__.py) and the various [demos](src/demos/).
+
+## Loader
+
+The standard way to initialize WebView2 is to use the `WebView2Loader.dll` that comes with Microsofts's WebView2 SDK. WebView2-for-Python instead uses a [custom loader.dll](loader/). The reason for this is that this small loader.dll allows to use `CreateCoreWebView2EnvironmentWithOptions()` and pass an instance of `CoreWebView2EnvironmentOptions` to it, which requires [WRL](https://learn.microsoft.com/en-us/cpp/cppcx/wrl/windows-runtime-cpp-template-library-wrl) and therefor is hardly possible to implement in plain C or Python/ctypes/libffi code. In particular the `loader.dll` activates support of browser extensions in the used environment.
 
 ## Showcase projects
 
