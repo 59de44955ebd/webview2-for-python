@@ -24,6 +24,10 @@ webview.run()
 ```
 For the API check out [\_\_init\_\_.py](src/webview2/__init__.py) and the various [demos](src/demos/).
 
+## Showcase projects
+
+A first showcase project is [LottieView](https://github.com/59de44955ebd/LottieView), a simple and small desktop viewer/player for [Lottie](https://en.wikipedia.org/wiki/Lottie_(file_format)) animation files.
+
 ## Screenshots
 *demo_standalone running in Windows 11 (dark mode)*
 ![](screenshots/webview2-standalone-win11-dark.png)
