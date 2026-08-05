@@ -11,7 +11,7 @@ It can either be used in [standalone mode](src/demos/demo_standalone/) or embedd
 * [WinForms](src/demos/demo_winforms/) (Windows Forms)
 * [wxPython](src/demos/demo_wxpython/)  (wxWidgets)
 
-## Usage:
+## Usage
 
 Minimal code, standalone mode:
 
