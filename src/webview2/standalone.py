@@ -90,6 +90,9 @@ class WebView2(WebView2):
         if hasattr(self, 'on_webview_ready'):
             self.connect(EVENT.WEBVIEW_READY, self.on_webview_ready)
 
+        if hasattr(self, 'on_dom_content_loaded'):
+            self.connect(EVENT.DOM_CONTENT_LOADED, self.on_dom_content_loaded)
+
         if hasattr(self, 'on_status_bar_text_changed'):
             self.connect(EVENT.STATUS_BAR_TEXT_CHANGED, self.on_status_bar_text_changed)
 
@@ -169,6 +172,12 @@ class WebView2(WebView2):
     def enable_menu_item(self, idm, flag):
         if self._mainwin.h_menu:
             user32.EnableMenuItem(self._mainwin.h_menu, idm, MF_ENABLED if flag else MF_GRAYED)
+
+    ########################################
+    #
+    ########################################
+    def set_window_title(self, text):
+        user32.SetWindowTextW(self._mainwin.hwnd, text)
 
     ########################################
     #
