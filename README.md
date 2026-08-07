@@ -30,9 +30,9 @@ The standard way to initialize WebView2 is to use the `WebView2Loader.dll` that 
 
 ## Showcase projects
 
-A first showcase project is [LottieView](https://github.com/59de44955ebd/LottieView), a simple and small desktop viewer/player for [Lottie](https://en.wikipedia.org/wiki/Lottie_(file_format)) animation files.
-
-Another showcase project is [SimpleBrowser](https://github.com/59de44955ebd/SimpleBrowser), still work in progress.
+* [LottieView](https://github.com/59de44955ebd/LottieView) - a simple and small desktop viewer/player for [Lottie](https://en.wikipedia.org/wiki/Lottie_(file_format)) animation files.
+* [PakEdit](https://github.com/59de44955ebd/PakEdit) - a simple viewer and editor for `.pak` resource files of Chromium-based browsers
+* [SimpleBrowser](https://github.com/59de44955ebd/SimpleBrowser) - a simple and small multi-tab desktop web browser (still work in progress).
 
 ## Screenshots
 *demo_standalone running in Windows 11 (dark mode)*
