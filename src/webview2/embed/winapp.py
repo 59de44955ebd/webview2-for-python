@@ -1,6 +1,6 @@
 """
 WebView2 can be loaded directly into any WinApp window (e.g. a MainWin)
-by specifying its HWND, and then be resized whenever the container windows
+by specifying its HWND, and then be resized whenever the container window
 was resized.
 
 Therefor this wrapper here is purely optional, it creates an additional
