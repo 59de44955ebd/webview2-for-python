@@ -147,6 +147,40 @@ class ICoreWebView2_25(ICoreWebView2_21):
     _iid_ = GUID('{b5a86092-df50-5b4f-a17b-6c8f8b40b771}')
     _idlflags_ = []
 
+
+#    MIDL_INTERFACE("806268b8-f897-5685-88e5-c45fca0b1a48")
+#    ICoreWebView2_26 : public ICoreWebView2_25
+#    {
+#    public:
+#        virtual HRESULT STDMETHODCALLTYPE add_SaveFileSecurityCheckStarting(
+#            /* [in] */ ICoreWebView2SaveFileSecurityCheckStartingEventHandler *eventHandler,
+#            /* [out] */ EventRegistrationToken *token) = 0;
+#
+#        virtual HRESULT STDMETHODCALLTYPE remove_SaveFileSecurityCheckStarting(
+#            /* [in] */ EventRegistrationToken token) = 0;
+#
+#    };
+
+
+#    MIDL_INTERFACE("00fbe33b-8c07-517c-aa23-0ddd4b5f6fa0")
+#    ICoreWebView2_27 : public ICoreWebView2_26
+#    {
+#    public:
+#        virtual HRESULT STDMETHODCALLTYPE add_ScreenCaptureStarting(
+#            /* [in] */ ICoreWebView2ScreenCaptureStartingEventHandler *eventHandler,
+#            /* [out] */ EventRegistrationToken *token) = 0;
+#
+#        virtual HRESULT STDMETHODCALLTYPE remove_ScreenCaptureStarting(
+#            /* [in] */ EventRegistrationToken token) = 0;
+#
+#    };
+
+
+class ICoreWebView2_28(ICoreWebView2_25):
+    _case_insensitive_ = True
+    _iid_ = GUID('{62e50381-5bf5-51a8-aae0-f20a3a9c8a90}')
+    _idlflags_ = []
+
 class ICoreWebView2AcceleratorKeyPressedEventArgs(IUnknown):
     _case_insensitive_ = True
     _iid_ = GUID('{9f760f8a-fb79-42be-9990-7b56900fa9c7}')
@@ -367,6 +401,11 @@ class ICoreWebView2Environment10(ICoreWebView2Environment9):
     _iid_ = GUID('{ee0eb9df-6f12-46ce-b53f-3f47b9c928e0}')
     _idlflags_ = []
 
+class ICoreWebView2Environment15(ICoreWebView2Environment10):
+    _case_insensitive_ = True
+    _iid_ = GUID('{2ac5ebfb-e654-5961-a667-7971885c7b27}')
+    _idlflags_ = []
+
 class ICoreWebView2EstimatedEndTimeChangedEventHandler(IUnknown):
     _case_insensitive_ = True
     _iid_ = GUID('{28f0d425-93fe-4e63-9f8d-2aeec6d3ba1e}')
@@ -400,6 +439,16 @@ class ICoreWebView2FaviconChangedEventHandler(IUnknown):
 class ICoreWebView2File(IUnknown):
     _case_insensitive_ = True
     _iid_ = GUID('{f2c19559-6bc1-4583-a757-90021be9afec}')
+    _idlflags_ = []
+
+class ICoreWebView2Find(IUnknown):
+    _case_insensitive_ = True
+    _iid_ = GUID('{a3ec0f5f-ddbc-54ed-8546-af75a785b9a6}')
+    _idlflags_ = []
+
+class ICoreWebView2FindOptions(IUnknown):
+    _case_insensitive_ = True
+    _iid_ = GUID('{e82e3b2b-a4af-5bc6-94c6-18b44157a16c}')
     _idlflags_ = []
 
 class ICoreWebView2FocusChangedEventHandler(IUnknown):
@@ -1054,6 +1103,14 @@ ICoreWebView2_25._methods_ = [COMMETHOD([], HRESULT, '_')] * 5 + [
 
     COMMETHOD([], HRESULT, 'ShowSaveAsUI',
         ( ['in'], POINTER(ICoreWebView2ShowSaveAsUICompletedHandler), 'handler' )),
+]
+
+#ICoreWebView2_26   2
+#ICoreWebView2_27   2
+
+ICoreWebView2_28._methods_ = [COMMETHOD([], HRESULT, '_')] * 4 + [
+    COMMETHOD([], HRESULT, 'get_Find',
+        ( ['retval', 'out'], POINTER(POINTER(ICoreWebView2Find)), 'value' )),
 ]
 
 ICoreWebView2AcceleratorKeyPressedEventArgs._methods_ = [
@@ -1712,6 +1769,16 @@ ICoreWebView2Environment10._methods_ = [
         ( ['in'], POINTER(ICoreWebView2CreateCoreWebView2CompositionControllerCompletedHandler), 'handler' )),
 ]
 
+#ICoreWebView2Environment11: 1
+#ICoreWebView2Environment12: 1
+#ICoreWebView2Environment13: 1
+#ICoreWebView2Environment14: 3
+
+ICoreWebView2Environment15._methods_ = [COMMETHOD([], HRESULT, '_')] * 6 + [
+    COMMETHOD([], HRESULT, 'CreateFindOptions',
+        ( ['retval', 'out'], POINTER(POINTER(ICoreWebView2FindOptions)), 'value' )),
+]
+
 ICoreWebView2EstimatedEndTimeChangedEventHandler._methods_ = [
     COMMETHOD([], HRESULT, 'Invoke',
         ( ['in'], POINTER(ICoreWebView2DownloadOperation), 'sender' ),
@@ -1771,6 +1838,70 @@ ICoreWebView2FaviconChangedEventHandler._methods_ = [
 ICoreWebView2File._methods_ = [
     COMMETHOD([], HRESULT, 'get_Path',
         ( ['retval', 'out'], POINTER(LPWSTR), 'value' )),
+]
+
+ICoreWebView2Find._methods_ = [
+    COMMETHOD([], HRESULT, 'get_ActiveMatchIndex',
+        ( ['retval', 'out'], POINTER(INT), 'value' )),
+
+    COMMETHOD([], HRESULT, 'get_MatchCount',
+        ( ['retval', 'out'], POINTER(INT), 'value' )),
+
+    COMMETHOD([], HRESULT, 'add_ActiveMatchIndexChanged',
+        ( ['in'], POINTER(IUnknown), 'eventHandler' ),                 # ICoreWebView2FindActiveMatchIndexChangedEventHandler *eventHandler
+        ( ['out'], POINTER(EventRegistrationToken), 'token' )),
+
+    COMMETHOD([], HRESULT, 'remove_ActiveMatchIndexChanged',
+        ( ['in'], EventRegistrationToken, 'token' )),
+
+    COMMETHOD([], HRESULT, 'add_MatchCountChanged',
+        ( ['in'], POINTER(IUnknown), 'eventHandler' ),                 # ICoreWebView2FindMatchCountChangedEventHandler *eventHandler
+        ( ['out'], POINTER(EventRegistrationToken), 'token' )),
+
+    COMMETHOD([], HRESULT, 'remove_MatchCountChanged',
+        ( ['in'], EventRegistrationToken, 'token' )),
+
+    COMMETHOD([], HRESULT, 'Start',
+        ( ['in'], POINTER(ICoreWebView2FindOptions), 'options' ),
+        ( ['in'], POINTER(IUnknown), 'handler' )),                  # ICoreWebView2FindStartCompletedHandler *handler
+
+    COMMETHOD([], HRESULT, 'FindNext'),
+
+    COMMETHOD([], HRESULT, 'FindPrevious'),
+
+    COMMETHOD([], HRESULT, 'Stop'),
+]
+
+ICoreWebView2FindOptions._methods_ = [
+    COMMETHOD([], HRESULT, 'get_FindTerm',
+        ( ['retval', 'out'], POINTER(LPWSTR), 'value' )),
+
+    COMMETHOD([], HRESULT, 'put_FindTerm',
+        ( ['in'], LPCWSTR, 'value' )),
+
+    COMMETHOD([], HRESULT, 'get_IsCaseSensitive',
+        ( ['retval', 'out'], LPBOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'put_IsCaseSensitive',
+        ( ['in'], BOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'get_ShouldHighlightAllMatches',
+        ( ['retval', 'out'], LPBOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'put_ShouldHighlightAllMatches',
+        ( ['in'], BOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'get_ShouldMatchWord',
+        ( ['retval', 'out'], LPBOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'put_ShouldMatchWord',
+        ( ['in'], BOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'get_SuppressDefaultFindDialog',
+        ( ['retval', 'out'], LPBOOL, 'value' )),
+
+    COMMETHOD([], HRESULT, 'put_SuppressDefaultFindDialog',
+        ( ['in'], BOOL, 'value' )),
 ]
 
 ICoreWebView2FocusChangedEventHandler._methods_ = [

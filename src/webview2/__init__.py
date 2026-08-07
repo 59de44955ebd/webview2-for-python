@@ -759,7 +759,7 @@ else
     ########################################
     def _on_environment_created(self, error_code, environment):
 
-        WebView2.environment = environment.QueryInterface(ICoreWebView2Environment10)
+        WebView2.environment = environment.QueryInterface(ICoreWebView2Environment15)
 
         options = WebView2.environment.CreateCoreWebView2ControllerOptions().QueryInterface(ICoreWebView2ControllerOptions4)
         if self.is_private:
@@ -781,7 +781,7 @@ else
 
         self._controller = args
 
-        webview = self._controller.get_CoreWebView2().QueryInterface(ICoreWebView2_25)
+        webview = self._controller.get_CoreWebView2().QueryInterface(ICoreWebView2_28)  # ICoreWebView2_25
         self._webview = webview
 
         if not WebView2.profile_initialized and SETTINGS.COLOR_SCHEME is not None:
@@ -1224,6 +1224,15 @@ else
             raise WebviewNotReadyException()
 
         return self._webview.get_FaviconUri()
+
+    ########################################
+    #
+    ########################################
+    def get_find(self):
+        if self._webview is None:
+            raise WebviewNotReadyException()
+
+        return self._webview.get_Find()
 
     ########################################
     #
