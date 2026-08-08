@@ -21,54 +21,11 @@ else:
 LOADER = CDLL(loader_dll)
 LOADER.CreateEnvironmentWithOptions.argtypes = (LPCWSTR, LPCWSTR, LPCWSTR, LPCWSTR, BOOL, POINTER(ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler))
 
-def create_environment(
-    browser_executable_folder,      # same as: WEBVIEW2_BROWSER_EXECUTABLE_FOLDER
-    user_data_folder,               # same as: WEBVIEW2_USER_DATA_FOLDER
-    additional_browser_arguments,   # same as: WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
-    language,                       # same as: '--lang=en' in additional_browser_arguments
-    browser_extensions_enabled,
-    handler
-):
-    return LOADER.CreateEnvironmentWithOptions(
-        browser_executable_folder,
-        user_data_folder,
-        additional_browser_arguments,
-        language,
-        browser_extensions_enabled,
-        handler
-    )
-
-
 class SETTINGS:
     # https://peter.sh/experiments/chromium-command-line-switches/
     # https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/webview-features-flags?tabs=dotnetcsharp
-
-    # block-new-web-contents
-    #    Takes a true or false value. If true, makes all pop-ups and calls to window.open fail.
-    #    If false, pop-ups and calls to window.open are honored.
-    # edge-webview-interactive-dragging
-    #    Enables pointer events and focus events to occur on elements that have the
-    #    --app-region: drag attribute. Drag elements are interactive by default.
-    # ignore-certificate-errors
-    #    Ignores certificate-related errors.
-    # incognito
-    #    Forces InPrivate (Incognito) mode even if the user data directory is specified
-    #    by using the --user-data-dir flag.
-    # remote-allow-origins
-    #    Enables web socket connections from the specified origins only. The * wildcard allows any origin.
-    # remote-debugging-port
-    #    Enables remote debugging over HTTP on the specified port.
-    # unsafely-treat-insecure-origin-as-secure
-    #    Treats given (insecure) origins as secure origins. Multiple origins can be specified, as a comma-separated list.
-    #    For the definition of secure contexts, see Secure Contexts, including the section Is origin potentially trustworthy?.
-    #    Example: --unsafely-treat-insecure-origin-as-secure=http://a.test,http://b.test.
-    # use-fake-device-for-media-stream
-    #    Uses a fake device for Media Stream to replace an actual camera and microphone.
-    # use-fake-ui-for-media-stream
-    #    Bypasses the media stream infobar, by selecting the default device for media streams (such as WebRTC).
-    #    Works with --use-fake-device-for-media-stream. Prefer using --auto-accept-camera-and-microphone-capture instead,
-    #    which doesn't interact with screen capture, such as capturing a browser tab.
     ADDITIONAL_BROWSER_ARGUMENTS = None
+
     ALLOW_HOST_INPUT_PROCESSING = False
     ARE_HOST_OBJECTS_ALLOWED = True
     BROWSER_ACCELERATOR_KEYS_ENABLED = None
@@ -246,28 +203,6 @@ class WEB_RESOURCE_CONTEXT:
     CSP_VIOLATION_REPORT = 15
     OTHER = 16
 
-# COREWEBVIEW2_PROCESS_KIND
-#class PROCESS_KIND:
-#    BROWSER = 0
-#    RENDERER = 1
-#    UTILITY = 2
-#    SANDBOX_HELPER = 3
-#    GPU = 4
-#    PPAPI_PLUGIN = 5
-#    PPAPI_BROKER = 6
-
-#class COREWEBVIEW2_SAVE_AS_UI_RESULT:
-#    SUCCESS = 0,
-#    INVALID_PATH = 1
-#    FILE_ALREADY_EXISTS = 2
-#    KIND_NOT_SUPPORTED = 3
-#    CANCELLED = 4
-
-#class COREWEBVIEW2_PRINT_STATUS:
-#    SUCCEEDED = 0
-#    PRINTER_UNAVAILABLE = 1
-#    OTHER_ERROR = 2
-
 class WebviewNotReadyException(Exception):
     pass
 
@@ -321,7 +256,45 @@ if (!window.chrome.webview.api){
     console.log('API_JS loaded');
 }
 """
-#window.dispatchEvent(new CustomEvent('pywebviewready'));
+
+DROP_INIT_JS = """
+function _init_drop_() {{
+    window.chrome.webview._dragover = (evt) => {{
+        if (evt.dataTransfer.files){{
+            evt.stopPropagation();
+            evt.preventDefault();
+        }}
+    }};
+    window.chrome.webview._drop = (evt) => {{
+        if (evt.dataTransfer.files.length){{
+            evt.stopPropagation();
+            evt.preventDefault();
+            chrome.webview.postMessageWithAdditionalObjects(['files_dropped', evt.target.id], evt.dataTransfer.files);
+        }}
+    }};
+    for (let el of document.querySelectorAll("{}")){{
+        el.addEventListener('dragover', window.chrome.webview._dragover);
+        el.addEventListener('drop', window.chrome.webview._drop);
+    }}
+}}
+if (document && document.readyState === "complete")
+    _init_drop_();
+else
+    window.addEventListener("DOMContentLoaded", () => _init_drop_());
+"""
+
+DROP_EXIT_JS = """
+function _exit_drop_() {{
+    for (let el of document.querySelectorAll("{}")){{
+        el.removeEventListener('dragover', window.chrome.webview._dragover);
+        el.removeEventListener('drop', window.chrome.webview._drop);
+    }}
+}}
+if (document && document.readyState === "complete")
+    _exit_drop_();
+else
+    window.addEventListener("DOMContentLoaded", () => _exit_drop_());
+"""
 
 ########################################
 # res = call_sync(self._active_webview.get_cookies)
@@ -352,6 +325,7 @@ def call_sync(func, **kwargs):
     )
     kernel32.CloseHandle(h_event)
     return ctx.result
+
 
 ########################################
 # https://treyhunner.com/2019/04/why-you-shouldnt-inherit-from-list-and-dict-in-python/
@@ -420,12 +394,10 @@ class WebView2:
         is_private = False,
         is_hidden = False,
     ):
-
         # public
         self.webview_ready = False
         self.hwnd = None
         self.is_private = is_private
-        self.hwnd_devtools = None
 
         self._controller = None
         self._webview = None
@@ -456,10 +428,8 @@ class WebView2:
                 break
             self._previous_hwnds.append(hwnd_next)
 
-
         if WebView2.environment is None:
-
-            create_environment(
+            LOADER.CreateEnvironmentWithOptions(
                 SETTINGS.BROWSER_EXECUTABLE_FOLDER,
                 SETTINGS.USER_DATA_FOLDER,
                 SETTINGS.ADDITIONAL_BROWSER_ARGUMENTS,
@@ -467,7 +437,6 @@ class WebView2:
                 SETTINGS.BROWSER_EXTENSIONS_ENABLED,
                 CreateCoreWebView2EnvironmentCompletedHandler(self._on_environment_created).interface()
             )
-
         else:
             options = WebView2.environment.CreateCoreWebView2ControllerOptions().QueryInterface(ICoreWebView2ControllerOptions4)
             if self.is_private:
@@ -488,8 +457,6 @@ class WebView2:
         events = list(self._handlers.keys())
         for evt in events:
             self.disconnect(evt)
-#            handler.Release()
-#        self._controller = None
         if self._controller:
             self._controller.Close()
             self._controller = None
@@ -505,7 +472,13 @@ class WebView2:
         init_event = not self._listeners[evt]
         self._listeners[evt].append(func)
         if init_event:
-            self._register_event(evt)
+            if evt == EVENT.FILES_DROPPED:
+                if self._webview:
+                    self.execute_js(DROP_INIT_JS.format(SETTINGS.FILE_DROP_SELECTOR))
+                else:
+                    self.add_script_to_execute_on_document_created(DROP_INIT_JS.format(SETTINGS.FILE_DROP_SELECTOR))
+            else:
+                self._register_event(evt)
 
     ########################################
     #
@@ -520,10 +493,16 @@ class WebView2:
         else:
             return
         if not self._listeners[evt]:
-            if self._webview:
-                self._unregister_event(evt)
+            if evt == EVENT.FILES_DROPPED:
+                if self._webview:
+                    self.execute_js(DROP_EXIT_JS.format(SETTINGS.FILE_DROP_SELECTOR))
+                else:
+                    self.add_script_to_execute_on_document_created(DROP_EXIT_JS.format(SETTINGS.FILE_DROP_SELECTOR))
             else:
-                self._init_events.remove(evt)
+                if self._webview:
+                    self._unregister_event(evt)
+                else:
+                    self._init_events.remove(evt)
 
     ########################################
     #
@@ -637,52 +616,10 @@ class WebView2:
             self._handlers[evt] = WebResourceResponseReceivedEventHandler(self._on_web_resource_response_received)
             self._tokens[evt] = self._webview.add_WebResourceResponseReceived(self._handlers[evt].interface())
 
-        elif evt == EVENT.FILES_DROPPED:
-            self.execute_js(f'''
-function _init_drop_() {{
-    window.chrome.webview._dragover = (evt) => {{
-        if (evt.dataTransfer.files){{
-            evt.stopPropagation();
-            evt.preventDefault();
-        }}
-    }};
-    window.chrome.webview._drop = (evt) => {{
-        if (evt.dataTransfer.files.length){{
-            evt.stopPropagation();
-            evt.preventDefault();
-            chrome.webview.postMessageWithAdditionalObjects(['files_dropped', evt.target.id], evt.dataTransfer.files);
-        }}
-    }};
-    for (let el of document.querySelectorAll("{SETTINGS.FILE_DROP_SELECTOR}")){{
-        el.addEventListener('dragover', window.chrome.webview._dragover);
-        el.addEventListener('drop', window.chrome.webview._drop);
-    }}
-}}
-if (document && document.readyState === "complete")
-    _init_drop_();
-else
-    window.addEventListener("DOMContentLoaded", () => _init_drop_());
-''')
-
     ########################################
     #
     ########################################
     def _unregister_event(self, evt):
-
-        if evt == EVENT.FILES_DROPPED:
-            self.execute_js(f'''
-function _exit_drop_() {{
-    for (let el of document.querySelectorAll("{SETTINGS.FILE_DROP_SELECTOR}")){{
-        el.removeEventListener('dragover', window.chrome.webview._dragover);
-        el.removeEventListener('drop', window.chrome.webview._drop);
-    }}
-}}
-if (document && document.readyState === "complete")
-    _exit_drop_();
-else
-    window.addEventListener("DOMContentLoaded", () => _exit_drop_());
-''')
-            return
 
         if evt not in self._tokens:
             return
@@ -754,8 +691,7 @@ else
         del self._handlers[evt]
 
     ########################################
-    # handler: CreateCoreWebView2EnvironmentCompletedHandler
-    # args: ICoreWebView2Environment
+    #
     ########################################
     def _on_environment_created(self, error_code, environment):
 
@@ -774,11 +710,9 @@ else
         )
 
     ########################################
-    # handler: CreateCoreWebView2ControllerCompletedHandler
-    # args: ICoreWebView2Controller
+    #
     ########################################
     def _on_webview_ready(self, sender, args):
-
         self._controller = args
 
         webview = self._controller.get_CoreWebView2().QueryInterface(ICoreWebView2_28)  # ICoreWebView2_25
@@ -801,7 +735,6 @@ else
 
         if self._init_hidden:
             self._controller.put_IsVisible(0)
-#            self._webview.TrySuspend(None)
 
         self._controller.put_Bounds(self._init_rect)
 
@@ -1074,7 +1007,6 @@ else
     ########################################
     def remove_script_to_execute_on_document_created(self, script_id):
         if self._webview:
-
             self._webview.RemoveScriptToExecuteOnDocumentCreated(script_id)
 
     ########################################
@@ -1566,7 +1498,7 @@ else
             self._controller.put_ZoomFactor(zoom)
 
     ########################################
-    # Handler not implemented (yet)
+    #
     ########################################
     def show_save_as_ui(self, callback = None):
         if self._webview is None:
