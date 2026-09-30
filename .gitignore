@@ -3,6 +3,8 @@
 /loader/*.user
 /loader/.vs/
 /loader/packages/
+/loader/tmp/
+/loader/x64/
 /nsis/
 /releases/
 /src/_min.py
