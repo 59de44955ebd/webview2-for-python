@@ -4,6 +4,8 @@
 /loader/.vs/
 /loader/packages/
 /loader/tmp/
+/loader/ARM64/
+/loader/Win32/
 /loader/x64/
 /nsis/
 /releases/

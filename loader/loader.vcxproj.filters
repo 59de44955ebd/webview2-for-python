@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="exports.def" />
     <None Include="packages.config" />
+    <None Include="exports.def" />
   </ItemGroup>
 </Project>
