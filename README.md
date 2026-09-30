@@ -28,8 +28,9 @@ For the API check out [\_\_init\_\_.py](src/webview2/__init__.py) and the variou
 
 The standard way to initialize WebView2 is to use the `WebView2Loader.dll` that comes with Microsofts's WebView2 SDK. WebView2-for-Python instead uses a [custom loader.dll](loader/). The reason for this is that this small loader.dll allows to use `CreateCoreWebView2EnvironmentWithOptions()` and pass an instance of `CoreWebView2EnvironmentOptions` to it, which requires [WRL](https://learn.microsoft.com/en-us/cpp/cppcx/wrl/windows-runtime-cpp-template-library-wrl) and therefor is hardly possible to implement in plain C or Python/ctypes/libffi code. In particular the `loader.dll` activates support of browser extensions in the used environment.
 
-## Showcase projects
-
+## Some showcase projects
+* [vidfind](https://github.com/59de44955ebd/vidfind) - a command line tool for finding and playing online movies.
+* [SMP](https://github.com/59de44955ebd/SMP) - a desktop media player that uses WebView2 as one of its media engines.
 * [LottieView](https://github.com/59de44955ebd/LottieView) - a simple and small desktop viewer/player for [Lottie](https://en.wikipedia.org/wiki/Lottie_(file_format)) animation files.
 * [PakEdit](https://github.com/59de44955ebd/PakEdit) - a simple viewer and editor for `.pak` resource files of Chromium-based browsers
 * [wrender](https://github.com/59de44955ebd/wrender) - a command-line tool for rendering `.svg` and other inputs using a headless WebView2
