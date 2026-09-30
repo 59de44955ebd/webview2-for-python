@@ -30,7 +30,7 @@
 #include <string>
 
 #include "WebView2.h"
-#define CORE_WEBVIEW_TARGET_PRODUCT_VERSION L"147.0.3912.50"
+#define CORE_WEBVIEW_TARGET_PRODUCT_VERSION L"154.0.4258.31"
 
 #define COREWEBVIEW2ENVIRONMENTOPTIONS_STRING_PROPERTY(p)     \
  public:                                                      \
