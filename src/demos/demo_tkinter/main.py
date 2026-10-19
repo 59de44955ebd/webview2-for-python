@@ -95,7 +95,7 @@ class Main:
 
         root.deiconify()
 
-        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview: webview.set_status_bar_text(webview.get_status_bar_text()))
+        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview, args: webview.set_status_bar_text(webview.get_status_bar_text()))
 
         ########################################
         # Since our app starts with theme = AUTO, always also reset local profile to AUTO.

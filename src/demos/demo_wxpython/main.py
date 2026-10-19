@@ -83,7 +83,7 @@ class Main(wx.Frame):
         self.Centre()
         self.Show()
 
-        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview: self.statusbar.SetStatusText(webview.get_status_bar_text()))
+        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview, args: self.statusbar.SetStatusText(webview.get_status_bar_text()))
 
         ########################################
         # Since our app starts with theme = AUTO, always also reset local profile to AUTO.

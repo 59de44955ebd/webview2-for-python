@@ -107,7 +107,7 @@ class Main(MainWin):
 
         self.register_message_callback(WM_SIZE, _on_WM_SIZE)
 
-        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview:
+        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview, args:
                 self.statusbar.set_window_text('  ' + webview.get_status_bar_text()))
 
         ########################################

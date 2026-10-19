@@ -63,7 +63,7 @@ class Main(WinForms.Form):
 
         self.webview.connect(EVENT.ACCELERATOR_KEY_PRESSED, _on_accelerator_key_pressed)
 
-        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview: self._status_label.set_Text(webview.get_status_bar_text()))
+        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview, args: self._status_label.set_Text(webview.get_status_bar_text()))
 
         self.webview.set_focus()
 

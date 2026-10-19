@@ -1,7 +1,7 @@
 from ctypes import *
 from ctypes.wintypes import *
 
-from .winapp.comtypes import IUnknown, GUID, COMObject, COMMETHOD, HRESULT
+from .winapp.comtypes import IUnknown, GUID, COMObject, COMMETHOD, HRESULT  #, IStream
 from .winapp.comtypes.automation import VARIANT, IDispatch, VT_DISPATCH
 from .winapp.comtypes.istream import IStream
 
@@ -34,27 +34,30 @@ class COREWEBVIEW2_PHYSICAL_KEY_STATUS(Structure):
 ########################################
 
 # Referenced but not implemented (yet)
-ICoreWebView2ClientCertificateRequestedEventHandler = LPVOID
 ICoreWebView2CreateCoreWebView2CompositionControllerCompletedHandler = LPVOID
-ICoreWebView2FileSystemHandle = LPVOID
 ICoreWebView2FindActiveMatchIndexChangedEventHandler = LPVOID
 ICoreWebView2FindMatchCountChangedEventHandler = LPVOID
 ICoreWebView2FindStartCompletedHandler = LPVOID
 ICoreWebView2FrameDestroyedEventHandler = LPVOID
-ICoreWebView2FramePermissionRequestedEventHandler = LPVOID
-ICoreWebView2FrameScreenCaptureStartingEventHandler = LPVOID
 ICoreWebView2IsDocumentPlayingAudioChangedEventHandler = LPVOID
 ICoreWebView2IsMutedChangedEventHandler = LPVOID
 ICoreWebView2MoveFocusRequestedEventHandler = LPVOID
 ICoreWebView2NewBrowserVersionAvailableEventHandler = LPVOID
-ICoreWebView2NotificationReceivedEventHandler = LPVOID
+ICoreWebView2PrintToPdfStreamCompletedHandler = LPVOID
 ICoreWebView2ProcessFailedEventHandler = LPVOID
-ICoreWebView2ProfileDeletedEventHandler = LPVOID
 ICoreWebView2SaveAsUIShowingEventHandler = LPVOID
 ICoreWebView2ScriptDialogOpeningEventHandler = LPVOID
 ICoreWebView2TrySuspendCompletedHandler = LPVOID
 ICoreWebView2WindowFeatures = LPVOID
 ICoreWebView2ZoomFactorChangedEventHandler = LPVOID
+
+ICoreWebView2ProfileDeletedEventHandler = LPVOID
+ICoreWebView2ClientCertificateRequestedEventHandler = LPVOID
+ICoreWebView2NotificationReceivedEventHandler = LPVOID
+ICoreWebView2FramePermissionRequestedEventHandler = LPVOID
+ICoreWebView2FrameScreenCaptureStartingEventHandler = LPVOID
+ICoreWebView2FileSystemHandle = LPVOID
+
 
 class ICoreWebView2(IUnknown):
     _case_insensitive_ = True
@@ -101,6 +104,10 @@ class ICoreWebView2_8(ICoreWebView2_7):
 #    _iid_ = GUID('{4d7b2eab-9fdc-468d-b998-a9260b5ed651}')
 #    _idlflags_ = []
 
+#MIDL_INTERFACE("4d7b2eab-9fdc-468d-b998-a9260b5ed651")
+#ICoreWebView2_9 : public ICoreWebView2_8
+#{
+#public:
 #    virtual HRESULT STDMETHODCALLTYPE add_IsDefaultDownloadDialogOpenChanged(
 #        /* [in] */ ICoreWebView2IsDefaultDownloadDialogOpenChangedEventHandler *handler,
 #        /* [out] */ EventRegistrationToken *token) = 0;
@@ -126,18 +133,26 @@ class ICoreWebView2_8(ICoreWebView2_7):
 #
 #    virtual /* [propput] */ HRESULT STDMETHODCALLTYPE put_DefaultDownloadDialogMargin(
 #        /* [in] */ POINT value) = 0;
+#
+#};
 
 #class ICoreWebView2_10(ICoreWebView2_9):
 #    _case_insensitive_ = True
 #    _iid_ = GUID('{b1690564-6f5a-4983-8e48-31d1143fecdb}')
 #    _idlflags_ = []
 
+#MIDL_INTERFACE("b1690564-6f5a-4983-8e48-31d1143fecdb")
+#ICoreWebView2_10 : public ICoreWebView2_9
+#{
+#public:
 #    virtual HRESULT STDMETHODCALLTYPE add_BasicAuthenticationRequested(
 #        /* [in] */ ICoreWebView2BasicAuthenticationRequestedEventHandler *eventHandler,
 #        /* [out] */ EventRegistrationToken *token) = 0;
 #
 #    virtual HRESULT STDMETHODCALLTYPE remove_BasicAuthenticationRequested(
 #        /* [in] */ EventRegistrationToken token) = 0;
+#
+#};
 
 class ICoreWebView2_11(ICoreWebView2_8):
     _case_insensitive_ = True
@@ -159,6 +174,10 @@ class ICoreWebView2_13(ICoreWebView2_12):
 #    _iid_ = GUID('{6daa4f10-4a90-4753-8898-77c5df534165}')
 #    _idlflags_ = []
 
+#MIDL_INTERFACE("6daa4f10-4a90-4753-8898-77c5df534165")
+#ICoreWebView2_14 : public ICoreWebView2_13
+#{
+#public:
 #    virtual HRESULT STDMETHODCALLTYPE add_ServerCertificateErrorDetected(
 #        /* [in] */ ICoreWebView2ServerCertificateErrorDetectedEventHandler *eventHandler,
 #        /* [out] */ EventRegistrationToken *token) = 0;
@@ -168,6 +187,8 @@ class ICoreWebView2_13(ICoreWebView2_12):
 #
 #    virtual HRESULT STDMETHODCALLTYPE ClearServerCertificateErrorActions(
 #        /* [in] */ ICoreWebView2ClearServerCertificateErrorActionsCompletedHandler *handler) = 0;
+#
+#};
 
 class ICoreWebView2_15(ICoreWebView2_13):
     _case_insensitive_ = True
@@ -184,28 +205,30 @@ class ICoreWebView2_17(ICoreWebView2_16):
     _iid_ = GUID('{702e75d4-fd44-434d-9d70-1a68a6b1192a}')
     _idlflags_ = []
 
-#class ICoreWebView2_18(ICoreWebView2_17):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{7a626017-28be-49b2-b865-3ba2b3522d90}')
-#    _idlflags_ = []
-
+#MIDL_INTERFACE("7a626017-28be-49b2-b865-3ba2b3522d90")
+#ICoreWebView2_18 : public ICoreWebView2_17
+#{
+#public:
 #    virtual HRESULT STDMETHODCALLTYPE add_LaunchingExternalUriScheme(
 #        /* [in] */ ICoreWebView2LaunchingExternalUriSchemeEventHandler *eventHandler,
 #        /* [out] */ EventRegistrationToken *token) = 0;
 #
 #    virtual HRESULT STDMETHODCALLTYPE remove_LaunchingExternalUriScheme(
 #        /* [in] */ EventRegistrationToken token) = 0;
-
-#class ICoreWebView2_19(ICoreWebView2_18):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{6921f954-79b0-437f-a997-c85811897c68}')
-#    _idlflags_ = []
 #
+#};
+#
+#MIDL_INTERFACE("6921f954-79b0-437f-a997-c85811897c68")
+#ICoreWebView2_19 : public ICoreWebView2_18
+#{
+#public:
 #    virtual /* [propget] */ HRESULT STDMETHODCALLTYPE get_MemoryUsageTargetLevel(
 #        /* [retval][out] */ COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL *value) = 0;
 #
 #    virtual /* [propput] */ HRESULT STDMETHODCALLTYPE put_MemoryUsageTargetLevel(
 #        /* [in] */ COREWEBVIEW2_MEMORY_USAGE_TARGET_LEVEL value) = 0;
+#
+#}
 
 class ICoreWebView2_20(ICoreWebView2_17):
     _case_insensitive_ = True
@@ -237,29 +260,31 @@ class ICoreWebView2_25(ICoreWebView2_24):
     _iid_ = GUID('{b5a86092-df50-5b4f-a17b-6c8f8b40b771}')
     _idlflags_ = []
 
-#class ICoreWebView2_26(ICoreWebView2_25):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{806268b8-f897-5685-88e5-c45fca0b1a48}')
-#    _idlflags_ = []
-#
+#    MIDL_INTERFACE("806268b8-f897-5685-88e5-c45fca0b1a48")
+#    ICoreWebView2_26 : public ICoreWebView2_25
+#    {
+#    public:
 #        virtual HRESULT STDMETHODCALLTYPE add_SaveFileSecurityCheckStarting(
 #            /* [in] */ ICoreWebView2SaveFileSecurityCheckStartingEventHandler *eventHandler,
 #            /* [out] */ EventRegistrationToken *token) = 0;
 #
 #        virtual HRESULT STDMETHODCALLTYPE remove_SaveFileSecurityCheckStarting(
 #            /* [in] */ EventRegistrationToken token) = 0;
+#
+#    };
 
-#class ICoreWebView2_27(ICoreWebView2_26):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{00fbe33b-8c07-517c-aa23-0ddd4b5f6fa0}')
-#    _idlflags_ = []
-
+#    MIDL_INTERFACE("00fbe33b-8c07-517c-aa23-0ddd4b5f6fa0")
+#    ICoreWebView2_27 : public ICoreWebView2_26
+#    {
+#    public:
 #        virtual HRESULT STDMETHODCALLTYPE add_ScreenCaptureStarting(
 #            /* [in] */ ICoreWebView2ScreenCaptureStartingEventHandler *eventHandler,
 #            /* [out] */ EventRegistrationToken *token) = 0;
 #
 #        virtual HRESULT STDMETHODCALLTYPE remove_ScreenCaptureStarting(
 #            /* [in] */ EventRegistrationToken token) = 0;
+#
+#    };
 
 class ICoreWebView2_28(ICoreWebView2_25):
     _case_insensitive_ = True
@@ -466,10 +491,8 @@ class ICoreWebView2Environment2(ICoreWebView2Environment):
     _iid_ = GUID('{41f3632b-5ef4-404f-ad82-2d606c5a9a21}')
     _idlflags_ = []
 
-#class ICoreWebView2Environment3(ICoreWebView2Environment2):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{80a22ae3-be7c-4ce2-afe1-5a50056cdeeb}')
-#    _idlflags_ = []
+#MIDL_INTERFACE("80a22ae3-be7c-4ce2-afe1-5a50056cdeeb")
+#ICoreWebView2Environment3 : public ICoreWebView2Environment2
 
 #    virtual HRESULT STDMETHODCALLTYPE CreateCoreWebView2CompositionController(
 #        /* [in] */ HWND ParentWindow,
@@ -478,19 +501,15 @@ class ICoreWebView2Environment2(ICoreWebView2Environment):
 #    virtual HRESULT STDMETHODCALLTYPE CreateCoreWebView2PointerInfo(
 #        /* [retval][out] */ ICoreWebView2PointerInfo **value) = 0;
 
-#class ICoreWebView2Environment4(ICoreWebView2Environment3):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{20944379-6dcf-41d6-a0a0-abc0fc50de0d}')
-#    _idlflags_ = []
+#MIDL_INTERFACE("20944379-6dcf-41d6-a0a0-abc0fc50de0d")
+#ICoreWebView2Environment4 : public ICoreWebView2Environment3
 
 #    virtual HRESULT STDMETHODCALLTYPE GetAutomationProviderForWindow(
 #        /* [in] */ HWND hwnd,
 #        /* [retval][out] */ IUnknown **value) = 0;
 
-#class ICoreWebView2Environment5(ICoreWebView2Environment4):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{319e423d-e0d7-4b8d-9254-ae9475de9b17}')
-#    _idlflags_ = []
+#MIDL_INTERFACE("319e423d-e0d7-4b8d-9254-ae9475de9b17")
+#ICoreWebView2Environment5 : public ICoreWebView2Environment4
 
 #    virtual HRESULT STDMETHODCALLTYPE add_BrowserProcessExited(
 #        /* [in] */ ICoreWebView2BrowserProcessExitedEventHandler *eventHandler,
@@ -534,13 +553,14 @@ class ICoreWebView2Environment12(ICoreWebView2Environment11):
     _iid_ = GUID('{f503db9b-739f-48dd-b151-fdfcf253f54e}')
     _idlflags_ = []
 
-#class ICoreWebView2Environment13(ICoreWebView2Environment12):
-#    _case_insensitive_ = True
-#    _iid_ = GUID('{af641f58-72b2-11ee-b962-0242ac120002}')
-#    _idlflags_ = []
-
+#MIDL_INTERFACE("af641f58-72b2-11ee-b962-0242ac120002")
+#ICoreWebView2Environment13 : public ICoreWebView2Environment12
+#{
+#public:
 #    virtual HRESULT STDMETHODCALLTYPE GetProcessExtendedInfos(
 #        /* [in] */ ICoreWebView2GetProcessExtendedInfosCompletedHandler *handler) = 0;
+#
+#};
 
 class ICoreWebView2Environment14(ICoreWebView2Environment12):
     _case_insensitive_ = True
@@ -775,11 +795,6 @@ class ICoreWebView2PrintSettings(IUnknown):
 class ICoreWebView2PrintToPdfCompletedHandler(IUnknown):
     _case_insensitive_ = True
     _iid_ = GUID('{ccf1ef04-fd8e-4d5f-b2de-0983e41b8c36}')
-    _idlflags_ = []
-
-class ICoreWebView2PrintToPdfStreamCompletedHandler(IUnknown):
-    _case_insensitive_ = True
-    _iid_ = GUID('{4c9f8229-8f93-444f-a711-2c0dfd6359d5}')
     _idlflags_ = []
 
 class ICoreWebView2ProcessInfo(IUnknown):
@@ -1337,7 +1352,7 @@ ICoreWebView2_13._methods_ = [
         ( ['retval', 'out'], POINTER(POINTER(ICoreWebView2Profile)), 'value' )),
 ]
 
-# ICoreWebView2_14  3
+# ICoreWebView2_14
 
 ICoreWebView2_15._methods_ = [COMMETHOD([], HRESULT, '_')] * 3 + [
     COMMETHOD([], HRESULT, 'add_FaviconChanged',
@@ -1371,7 +1386,7 @@ ICoreWebView2_16._methods_ = [
 ICoreWebView2_17._methods_ = [
     COMMETHOD([], HRESULT, 'PostSharedBufferToScript',
         ( ['in'], POINTER(ICoreWebView2SharedBuffer), 'sharedBuffer' ),
-        ( ['in'], INT, 'access' ),  # COREWEBVIEW2_SHARED_BUFFER_ACCESS
+        ( ['in'], INT, 'access' ),                                          # COREWEBVIEW2_SHARED_BUFFER_ACCESS
         ( ['in'], LPCWSTR, 'additionalDataAsJson' )),
 ]
 
@@ -1390,15 +1405,23 @@ ICoreWebView2_21._methods_ = [
 ]
 
 ICoreWebView2_22._methods_ = [
+#    virtual HRESULT STDMETHODCALLTYPE AddWebResourceRequestedFilterWithRequestSourceKinds(
+#        /* [in] */ LPCWSTR uri,
+#        /* [in] */ COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext,
+#        /* [in] */ COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS requestSourceKinds) = 0;
     COMMETHOD([], HRESULT, 'AddWebResourceRequestedFilterWithRequestSourceKinds',
         ( ['in'], LPCWSTR, 'uri' ),
-        ( ['in'], INT, 'ResourceContext' ),  # COREWEBVIEW2_WEB_RESOURCE_CONTEXT
-        ( ['in'], INT, 'requestSourceKinds' )),  # COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS
+        ( ['in'], INT, 'ResourceContext' ),                                                     # COREWEBVIEW2_WEB_RESOURCE_CONTEXT
+        ( ['in'], INT, 'requestSourceKinds' )),                                                 # COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS
 
+#    virtual HRESULT STDMETHODCALLTYPE RemoveWebResourceRequestedFilterWithRequestSourceKinds(
+#        /* [in] */ LPCWSTR uri,
+#        /* [in] */ COREWEBVIEW2_WEB_RESOURCE_CONTEXT ResourceContext,
+#        /* [in] */ COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS requestSourceKinds) = 0;
     COMMETHOD([], HRESULT, 'RemoveWebResourceRequestedFilterWithRequestSourceKinds',
         ( ['in'], LPCWSTR, 'uri' ),
-        ( ['in'], INT, 'ResourceContext' ),  # COREWEBVIEW2_WEB_RESOURCE_CONTEXT
-        ( ['in'], INT, 'requestSourceKinds' )),  # COREWEBVIEW2_WEB_RESOURCE_REQUEST_SOURCE_KINDS
+        ( ['in'], INT, 'ResourceContext' ),
+        ( ['in'], INT, 'requestSourceKinds' )),
 ]
 
 ICoreWebView2_23._methods_ = [
@@ -2109,14 +2132,22 @@ ICoreWebView2Environment12._methods_ = [
 #ICoreWebView2Environment13: 1
 
 ICoreWebView2Environment14._methods_ = [COMMETHOD([], HRESULT, '_')] * 1 + [
+#    virtual HRESULT STDMETHODCALLTYPE CreateWebFileSystemFileHandle(
+#        /* [in] */ LPCWSTR path,
+#        /* [in] */ COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION permission,
+#        /* [retval][out] */ ICoreWebView2FileSystemHandle **value) = 0;
     COMMETHOD([], HRESULT, 'CreateWebFileSystemFileHandle',
         ( ['in'], LPCWSTR, 'path' ),
-        ( ['in'], INT, 'permission' ),  # COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
+        ( ['in'], INT, 'permission' ),                                                          # COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
         ( ['retval', 'out'], POINTER(POINTER(ICoreWebView2FileSystemHandle)), 'value' )),
 
+#    virtual HRESULT STDMETHODCALLTYPE CreateWebFileSystemDirectoryHandle(
+#        /* [in] */ LPCWSTR path,
+#        /* [in] */ COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION permission,
+#        /* [retval][out] */ ICoreWebView2FileSystemHandle **value) = 0;
     COMMETHOD([], HRESULT, 'CreateWebFileSystemDirectoryHandle',
         ( ['in'], LPCWSTR, 'path' ),
-        ( ['in'], INT, 'permission' ),  # COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
+        ( ['in'], INT, 'permission' ),                                                          # COREWEBVIEW2_FILE_SYSTEM_HANDLE_PERMISSION
         ( ['retval', 'out'], POINTER(POINTER(ICoreWebView2FileSystemHandle)), 'value' )),
 
     COMMETHOD([], HRESULT, 'CreateObjectCollection',
@@ -2550,12 +2581,6 @@ ICoreWebView2PrintToPdfCompletedHandler._methods_ = [
         ( ['in'], LPBOOL, 'result' )),
 ]
 
-ICoreWebView2PrintToPdfStreamCompletedHandler._methods_ = [
-    COMMETHOD([], HRESULT, 'Invoke',
-        ( ['in'], HRESULT, 'errorCode' ),
-        ( ['in'], POINTER(IStream), 'result' )),
-]
-
 ICoreWebView2ProcessInfo._methods_ = [
     COMMETHOD([], HRESULT, 'get_ProcessId',
         ( ['retval', 'out'], POINTER(INT), 'value' )),
@@ -2757,18 +2782,27 @@ ICoreWebView2Settings6._methods_ = [
 ]
 
 ICoreWebView2SharedBuffer._methods_ = [
+#    virtual /* [propget] */ HRESULT STDMETHODCALLTYPE get_Size(
+#        /* [retval][out] */ UINT64 *value) = 0;
     COMMETHOD([], HRESULT, 'get_Size',
         ( ['retval', 'out'], POINTER(UINT64), 'value' )),
 
+#    virtual /* [propget] */ HRESULT STDMETHODCALLTYPE get_Buffer(
+#        /* [retval][out] */ BYTE **value) = 0;
     COMMETHOD([], HRESULT, 'get_Buffer',
         ( ['retval', 'out'], POINTER(LPBYTE), 'value' )),
 
+#    virtual HRESULT STDMETHODCALLTYPE OpenStream(
+#        /* [retval][out] */ IStream **value) = 0;
     COMMETHOD([], HRESULT, 'OpenStream',
         ( ['retval', 'out'], POINTER(POINTER(IStream)), 'value' )),
 
+#    virtual /* [propget] */ HRESULT STDMETHODCALLTYPE get_FileMappingHandle(
+#        /* [retval][out] */ HANDLE *value) = 0;
     COMMETHOD([], HRESULT, 'get_FileMappingHandle',
         ( ['retval', 'out'], POINTER(HANDLE), 'value' )),
 
+#    virtual HRESULT STDMETHODCALLTYPE Close( void) = 0;
     COMMETHOD([], HRESULT, 'Close'),
 ]
 
@@ -3052,7 +3086,7 @@ ICoreWebView2Frame3._methods_ = [
 ICoreWebView2Frame4._methods_ = [
     COMMETHOD([], HRESULT, 'PostSharedBufferToScript',
         ( ['in'], POINTER(ICoreWebView2SharedBuffer), 'sharedBuffer' ),
-        ( ['in'], INT, 'access' ),  # COREWEBVIEW2_SHARED_BUFFER_ACCESS
+        ( ['in'], INT, 'access' ),                                          # COREWEBVIEW2_SHARED_BUFFER_ACCESS
         ( ['in'], LPCWSTR, 'additionalDataAsJson' )),
 ]
 

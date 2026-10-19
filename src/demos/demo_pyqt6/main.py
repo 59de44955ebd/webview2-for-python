@@ -62,7 +62,7 @@ class Main(QMainWindow):
         self.resize(1024, 768)
         self.show()
 
-        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview: self.statusBar.showMessage(webview.get_status_bar_text()))
+        self.webview.connect(EVENT.STATUS_BAR_TEXT_CHANGED, lambda webview, args: self.statusBar.showMessage(webview.get_status_bar_text()))
 
         self.webview.set_focus()
 

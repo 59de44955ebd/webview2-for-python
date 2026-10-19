@@ -114,7 +114,7 @@ class Main(WebView2):
     ########################################
     #
     ########################################
-    def on_status_bar_text_changed(self, webview):
+    def on_status_bar_text_changed(self, webview, args):
         self.set_status_bar_text(webview.get_status_bar_text())
 
     ########################################

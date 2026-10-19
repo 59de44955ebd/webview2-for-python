@@ -25,7 +25,7 @@ echo.
 echo ****************************************
 echo Copying resources...
 echo ****************************************
-copy "src\webview2\native\win-amd64\loader.dll" "dist\%APP_NAME%\%DATA_DIR%\"
+copy "src\webview2\native\win-amd64\webview2_loader.dll" "dist\%APP_NAME%\%DATA_DIR%\"
 copy "src\demos\%APP_NAME%\main.rcc" "dist\%APP_NAME%\%DATA_DIR%\"
 copy "src\demos\%APP_NAME%\main.ui" "dist\%APP_NAME%\%DATA_DIR%\"
 

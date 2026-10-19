@@ -340,14 +340,6 @@ class PrintToPdfCompletedHandler(COMObject, _Handler):
 
 ########################################
 #    COMMETHOD([], HRESULT, 'Invoke',
-#        ( ['in'], HRESULT, 'errorCode' ),
-#        ( ['in'], POINTER(IStream), 'result' )),
-########################################
-class PrintToPdfStreamCompletedHandler(COMObject, _Handler):
-    _com_interfaces_ = [ICoreWebView2PrintToPdfStreamCompletedHandler]
-
-########################################
-#    COMMETHOD([], HRESULT, 'Invoke',
 #        ( ['in'], POINTER(ICoreWebView2Environment), 'sender' ),
 #        ( ['in'], POINTER(IUnknown), 'args' )),
 ########################################
