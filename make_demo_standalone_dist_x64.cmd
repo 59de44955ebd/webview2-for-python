@@ -12,7 +12,7 @@ set APP_DIR=%CD%\dist\%APP_NAME%\
 
 REM Cleanup dist folder
 rd /s /q "dist\%APP_NAME%" 2>nul
-del "dist\%APP_NAME%-x64.7z" 2>nul
+del "dist\%APP_NAME%-portable-x64.7z" 2>nul
 
 echo.
 echo ****************************************
@@ -40,6 +40,13 @@ del "dist\%APP_NAME%\%DATA_DIR%\_socket.pyd
 del "dist\%APP_NAME%\%DATA_DIR%\_bz2.pyd
 del "dist\%APP_NAME%\%DATA_DIR%\_lzma.pyd"
 
+del "dist\%APP_NAME%\%DATA_DIR%\libcrypto-3.dll"
+del "dist\%APP_NAME%\%DATA_DIR%\unicodedata.pyd"
+del "dist\%APP_NAME%\%DATA_DIR%\VCRUNTIME140_1.dll"
+del "dist\%APP_NAME%\%DATA_DIR%\_decimal.pyd"
+del "dist\%APP_NAME%\%DATA_DIR%\_hashlib.pyd"
+del "dist\%APP_NAME%\%DATA_DIR%\_wmi.pyd"
+
 call :create_7z
 
 :done
@@ -48,7 +55,7 @@ echo ****************************************
 echo Done.
 echo ****************************************
 echo.
-pause
+if "%NOPAUSE%" == "" pause
 
 endlocal
 goto :eof
