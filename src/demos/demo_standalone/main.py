@@ -84,7 +84,7 @@ class Main(WebView2):
                 hr = shlwapi.SHCreateStreamOnFileW(filename, STGM_CREATE | STGM_WRITE, byref(istream))
                 self.capture(image_format, istream)
 
-        if idm == IDM_EXIT:
+        elif idm == IDM_EXIT:
             self.close()
 
         elif idm == IDM_FULLSCREEN:

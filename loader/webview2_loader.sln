@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.36001.139
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "loader", "loader.vcxproj", "{4CD489F7-A9E7-3BE3-8859-E56D9C5D1B98}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webview2_loader", "webview2_loader.vcxproj", "{4CD489F7-A9E7-3BE3-8859-E56D9C5D1B98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
